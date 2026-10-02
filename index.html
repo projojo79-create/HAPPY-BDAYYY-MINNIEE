@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Minnie 💜</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,"Trebuchet MS",sans-serif}
+body{
+  background:linear-gradient(135deg,#ffd8ed 0%,#e5d4ff 52%,#d8efff 100%);
+  color:#57265f;
+  overflow-x:hidden;
+}
+
+/* HOME */
+#home{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.home-card{
+  position:relative;
+  z-index:5;
+  width:min(620px,90%);
+  padding:55px 30px;
+  text-align:center;
+  background:rgba(255,255,255,.9);
+  border-radius:32px;
+  box-shadow:0 20px 55px rgba(70,30,90,.2);
+}
+.home-card .big{font-size:70px}
+.home-card h1{
+  margin:12px 0;
+  font-size:clamp(42px,8vw,70px);
+  color:#b83280;
+}
+.home-card p{font-size:20px;color:#795080}
+.open-btn,.surprise-btn{
+  border:0;
+  border-radius:999px;
+  padding:16px 30px;
+  background:linear-gradient(135deg,#b83280,#7d46c2);
+  color:#fff;
+  font-size:19px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(100,40,140,.28);
+  transition:.2s;
+}
+.open-btn:hover,.surprise-btn:hover{transform:scale(1.05)}
+
+/* JJK-INSPIRED DECORATIVE BACKGROUND */
+.jjk-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:.38;
+}
+.aura{
+  position:absolute;
+  width:260px;height:420px;
+  bottom:-90px;
+  border-radius:50% 50% 15% 15%;
+  filter:blur(1px);
+  box-shadow:0 0 55px currentColor;
+}
+.aura::before{
+  content:"";
+  position:absolute;
+  left:50%;top:40px;
+  width:100px;height:100px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:currentColor;
+  box-shadow:0 0 35px currentColor;
+}
+.aura.gojo{left:-75px;color:#73b9ff;background:linear-gradient(#bfe5ff,#1c2c70)}
+.aura.yuta{right:-75px;color:#a79aff;background:linear-gradient(#d9d5ff,#2a174f)}
+.aura.yuji{left:26%;color:#ff4d58;background:linear-gradient(#ff9a91,#321324);transform:scale(.7)}
+.aura.sukuna{right:26%;color:#ff2525;background:linear-gradient(#ff4d55,#21000a);transform:scale(.7)}
+
+#birthday{display:none;min-height:100vh;padding:32px 18px 60px;position:relative}
+#birthday.show{display:block}
+
+/* HEADER */
+.header{
+  position:relative;
+  z-index:3;
+  text-align:center;
+  max-width:1100px;
+  margin:auto;
+  animation:drop .8s ease both;
+}
+.tiny{font-size:17px;font-weight:bold;letter-spacing:2px}
+.header h1{
+  margin:14px 0;
+  font-size:clamp(44px,8vw,90px);
+  line-height:.94;
+  color:#b83280;
+  text-shadow:3px 5px rgba(255,255,255,.75);
+}
+.sub{font-size:21px;font-weight:bold}
+
+/* MAIN CARD */
+.main-card{
+  position:relative;
+  z-index:3;
+  width:min(1120px,100%);
+  margin:32px auto 0;
+  padding:28px;
+  display:grid;
+  grid-template-columns:180px minmax(0,1fr) 180px;
+  gap:24px;
+  align-items:center;
+  background:rgba(255,255,255,.88);
+  border-radius:32px;
+  box-shadow:0 20px 55px rgba(70,30,90,.18);
+  animation:up .9s ease .15s both;
+}
+
+/* IMPORTANT: images are NOT cropped */
+.side{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.side img{
+  display:block;
+  width:100%;
+  height:260px;
+  object-fit:contain;
+  border-radius:22px;
+  border:6px solid #fff;
+  background:#fff;
+  box-shadow:0 12px 25px rgba(70,30,80,.18);
+}
+.side.left img{transform:rotate(-3deg)}
+.side.right img{transform:rotate(3deg)}
+
+.message{text-align:center;padding:8px 12px}
+.message h2{font-size:31px;color:#9c3fb8;margin:0 0 16px}
+.message p{font-size:18px;line-height:1.7;margin:14px 0}
+.hamster{
+  width:185px;height:185px;
+  object-fit:cover;
+  border-radius:50%;
+  border:7px solid #f4c5e8;
+  display:block;
+  margin:20px auto 8px;
+}
+.hamster-label{font-weight:bold}
+.signature{margin-top:20px;font-size:23px;font-weight:bold;color:#b83280}
+
+/* BOTTOM */
+.surprise{text-align:center;position:relative;z-index:3;margin-top:28px}
+#surpriseText{display:none;margin-top:16px;font-size:24px;font-weight:bold}
+
+/* FLOATING */
+.float{
+  position:fixed;
+  z-index:2;
+  pointer-events:none;
+  font-size:27px;
+  animation:float 5s ease-in-out infinite;
+}
+.f1{left:4%;top:14%}.f2{right:5%;top:19%;animation-delay:1s}
+.f3{left:7%;bottom:13%;animation-delay:2s}.f4{right:8%;bottom:15%;animation-delay:3s}
+
+@keyframes float{50%{transform:translateY(-22px) rotate(8deg)}}
+@keyframes drop{from{opacity:0;transform:translateY(-35px)}to{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
+
+/* CONFETTI */
+.confetti{
+  position:fixed;
+  top:-30px;
+  z-index:200;
+  pointer-events:none;
+  animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg);opacity:0}}
+
+/* BLACK FLASH */
+#blackFlash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  opacity:0;
+  overflow:hidden;
+  background:#000;
+}
+#blackFlash.active{animation:impact .82s ease-out forwards}
+
+.flash-text{
+  color:#fff;
+  font-size:clamp(38px,9vw,105px);
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:7px;
+  text-shadow:0 0 7px #fff,0 0 22px #ff0000,0 0 55px #760000;
+  opacity:0;
+}
+#blackFlash.active .flash-text{animation:flashText .82s ease-out forwards}
+
+#blackFlash::before,#blackFlash::after{
+  content:"";
+  position:absolute;
+  width:130vw;height:11px;
+  background:linear-gradient(90deg,transparent,#8b0000,#ff1a1a,#fff,#ff1a1a,#8b0000,transparent);
+  box-shadow:0 0 15px #fff,0 0 45px #f00;
+  opacity:0;
+}
+#blackFlash.active::before{animation:slashA .82s ease-out}
+#blackFlash.active::after{animation:slashB .82s ease-out}
+
+@keyframes impact{
+  0%{opacity:0;background:#000}
+  8%{opacity:1;background:#000}
+  17%{opacity:1;background:#120000}
+  22%{opacity:1;background:#f21d1d}
+  25%{opacity:1;background:#fff}
+  28%{opacity:1;background:#050000}
+  45%{opacity:1;background:#230000}
+  53%{opacity:1;background:#e00000}
+  57%{opacity:1;background:#fff}
+  61%{opacity:1;background:#000}
+  100%{opacity:0;background:transparent}
+}
+@keyframes flashText{
+  0%,17%{opacity:0;transform:scale(.55) skew(-10deg)}
+  22%{opacity:1;transform:scale(1.08) skew(-10deg)}
+  30%{opacity:0;transform:scale(1.25) skew(-10deg)}
+  50%{opacity:1;transform:scale(1) skew(-10deg)}
+  68%{opacity:1;transform:scale(1.03) skew(-10deg)}
+  100%{opacity:0;transform:scale(1.15) skew(-10deg)}
+}
+@keyframes slashA{
+  0%,24%{opacity:0;transform:rotate(-18deg) scaleX(0)}
+  35%{opacity:1;transform:rotate(-18deg) scaleX(1)}
+  55%{opacity:1;transform:rotate(-18deg) scaleX(1.15)}
+  100%{opacity:0;transform:rotate(-18deg) scaleX(0)}
+}
+@keyframes slashB{
+  0%,43%{opacity:0;transform:rotate(18deg) scaleX(0)}
+  55%{opacity:1;transform:rotate(18deg) scaleX(1)}
+  70%{opacity:1;transform:rotate(18deg) scaleX(1.1)}
+  100%{opacity:0;transform:rotate(18deg) scaleX(0)}
+}
+
+@media(max-width:850px){
+  .main-card{grid-template-columns:1fr;max-width:650px}
+  .side{order:0}
+  .side img{width:min(240px,70vw);height:230px}
+  .message{order:1}
+  .side.right{order:2}
+  .aura.yuji,.aura.sukuna{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Subtle JJK-inspired background -->
+<div class="jjk-bg" aria-hidden="true">
+  <div class="aura gojo"></div>
+  <div class="aura yuta"></div>
+  <div class="aura yuji"></div>
+  <div class="aura sukuna"></div>
+</div>
+
+<!-- Black Flash -->
+<div id="blackFlash" aria-hidden="true">
+  <div class="flash-text">BLACK FLASH!</div>
+</div>
+
+<!-- HOME -->
+<section id="home">
+  <div class="home-card">
+    <div class="big">🎁💜</div>
+    <h1>open this :3</h1>
+    <p>i made something for you, Minnie...</p>
+    <button class="open-btn" onclick="openBirthday()">OPEN IT ✨</button>
+  </div>
+</section>
+
+<!-- BIRTHDAY -->
+<section id="birthday">
+
+  <div class="float f1">💜</div>
+  <div class="float f2">✨</div>
+  <div class="float f3">💗</div>
+  <div class="float f4">⭐</div>
+
+  <header class="header">
+    <div class="tiny">🎂 TODAY IS A VERY IMPORTANT DAY 🎂</div>
+    <h1>HAPPY BIRTHDAYY<br>MINNIEEEEEE 💜</h1>
+    <div class="sub">🥳 THIS ONE IS FOR YOU 🥳</div>
+  </header>
+
+  <div class="main-card">
+
+    <!-- One uploaded image on each side: no duplicates, no cropping -->
+    <div class="side left">
+      <img src="minnie-photo-1.png" alt="Minnie memory">
+    </div>
+
+    <div class="message">
+      <h2>💌 Dear Minnie...</h2>
+
+      <p>
+        Happy birthdayyyy Minnieee!! 🎉💜 I hope you have the best
+        birthday ever and that your day is filled with happiness,
+        laughter and everything you love.
+      </p>
+
+      <p>
+        You're genuinely such a good online friend, and you've become
+        way more than just a friend to me. You're basically like a
+        little sister to me 😭💜. I'm really glad I got to meet you
+        and have all the random conversations, jokes, chaos and memories
+        we've made.
+      </p>
+
+      <p>
+        You're such an amazing person, and I hope this year brings you
+        lots of happiness, good memories and countless reasons to smile.
+        You deserve an absolutely wonderful birthday!!
+      </p>
+
+      <img
+        class="hamster"
+        src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=500&q=80"
+        alt="Cute hamster"
+      >
+      <div class="hamster-label">🐹 birthday hamster approved 🐹</div>
+
+      <div class="signature">From Jojo 💜</div>
+    </div>
+
+    <div class="side right">
+      <img src="minnie-photo-2.png" alt="Minnie memory">
+    </div>
+
+  </div>
+
+  <div class="surprise">
+    <button class="surprise-btn" onclick="surprise()">🎁 CLICK FOR A SURPRISE 🎁</button>
+    <div id="surpriseText">🎉 HAPPY BIRTHDAY MINNIEEEE!! 🎉<br>🐹💜 YOU'RE AWESOME 💜🐹</div>
+  </div>
+
+</section>
+
+<script>
+/* Original browser-generated impact sound.
+   It is not a ripped/copyrighted anime audio clip. */
+function playBlackFlashSound(){
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if(!AudioContext) return;
+
+  const ctx = new AudioContext();
+  const now = ctx.currentTime;
+
+  // Deep impact
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sawtooth";
+  osc.frequency.setValueAtTime(95, now);
+  osc.frequency.exponentialRampToValueAtTime(38, now + .28);
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(.48, now + .015);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + .34);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + .35);
+
+  // Sharp crack
+  const buffer = ctx.createBuffer(1, ctx.sampleRate * .16, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for(let i=0;i<data.length;i++){
+    data[i] = (Math.random()*2-1) * Math.pow(1-i/data.length,2);
+  }
+  const noise = ctx.createBufferSource();
+  const filter = ctx.createBiquadFilter();
+  const ng = ctx.createGain();
+  noise.buffer = buffer;
+  filter.type = "highpass";
+  filter.frequency.value = 900;
+  ng.gain.setValueAtTime(.0001,now);
+  ng.gain.exponentialRampToValueAtTime(.55,now+.005);
+  ng.gain.exponentialRampToValueAtTime(.0001,now+.16);
+  noise.connect(filter).connect(ng).connect(ctx.destination);
+  noise.start(now);
+
+  setTimeout(()=>ctx.close(),700);
+}
+
+function confetti(count){
+  const emojis=["🎉","🎊","💜","💗","✨","⭐","🎂","🎁","🐹"];
+  for(let i=0;i<count;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    c.style.left=Math.random()*100+"vw";
+    c.style.fontSize=(15+Math.random()*22)+"px";
+    c.style.animationDuration=(2+Math.random()*3)+"s";
+    c.style.animationDelay=Math.random()*0.8+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5500);
+  }
+}
+
+function openBirthday(){
+  document.getElementById("home").style.display="none";
+  document.getElementById("birthday").classList.add("show");
+
+  const flash=document.getElementById("blackFlash");
+  flash.classList.remove("active");
+  void flash.offsetWidth;
+  flash.classList.add("active");
+
+  playBlackFlashSound();
+  confetti(70);
+}
+
+function surprise(){
+  document.getElementById("surpriseText").style.display="block";
+  confetti(35);
+}
+</script>
+
+</body>
+</html>
